@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Studencki k8s</title>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Kubernetes po studencku</h1>
+					<p>czyli prezentacja <b>k3s</b> jako narzędzia do nauki i testowania kubernetesa</p>
+				</section>
+				<section>
+					<section>
+						<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
+						<h1 class="fragment fade-in !text-red-500">Nie</h1>
+					</section>
+					<section>
+						<h2>Plusy k8s</h2>
+						<ul>
+							<li>Mamy spory ruch i potrzebujemy skalować horyzontalnie nasze usługi</li>
+							<li>Chcielibyśmy mieć ustandaryzowaną warstwę abstrakcji by łatwiej wdrażać nowe serwisy</li>
+							<li>Nie chcielibyśmy być zbyt "vendor locked-in" i chcemy mieć możliwość późniejszej zmiany chmury na którą wdrażamy</li>
+							<li>Chcielibyśmy korzystać z nowszych technik DevOps: GitOps, A/B Testing, Canary releases i inne...</li>
+							<li>Pozwala lepiej rozłożyć zasoby sprzętowe</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Minusy k8s</h2>
+						<ul>
+							<li>Wymaga wiedzy i doświadczenia aby go poprawnie skonfigurować</li>
+							<li>Niesie za sobą wyższe koszty (niż np. zwykły VPS) co może być dotkliwe zwłaszcza w przypadku środowisk testowych</li>
+							<li>Wsparcie dla .NET Framework jest możliwe ale jest zdecydowanie mniej materiałów do nauki niż w przypadku .NET Core</li>
+							<li>Zarządzenie i debugowanie klastra jest uciążliwe ze względu na stopień skomplikowania</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h1>Jak możemy zminimalizować te minusy?</h1>
+					<p>W mojej opinii warto skorzystać tutaj z</p>
+					<div class="h-[25rem] w-full flex justify-center">
+						<img src="./src/imgs/k3s-logo.svg"/>
+					</div>
+				</section>
+				<section>
+					<h1>Jak uzyskać klaster do nauki?</h1>
+					<ol>
+						<li class="text-[3rem]">
+							<p class="text-[3rem]">Managed k8s clusters (AKS, EKS, GKE, Linode, DO etc.)</p>
+							<ul>
+								<li>Stosunkowo wysoka cena</li>
+								<li>Duży stopień skomplikowania; Wymaga wiedzy by poprawnie skonfigurować i nie zbankrutować</li>
+								<li>Vendor Lock-In - Ciężko zmienić dostawcę (np. LoadBalancer, powiązane usługi, IAM i inne)</li>
+								<li>Idealne na produkcyjny workload, często przesada na środowisko dev/test</li>
+							</ul>
+						</li>
+						<li class="text-[3rem]">
+							<p class="text-[3rem]">BareMetal - CoreOS, RancherOS, VMWare i inne</p>
+							<ul>
+								<li>Szybkie, prostsze w instalacji na własnym systemie</li>
+								<li>Ciężej skonfigurować i wykorzystać przestrzeń dyskową bądź resztę komponentów (karty graficzne etc.)</li>
+								<li>Wymaga znajomości danego systemu; Uczymy się mniej uniwersalnych umiejętności</li>
+							</ul>
+						</li>
+						<li class="text-[3rem]">
+							<p class="text-[3rem] fragment highlight-red">Instalacja na systemie operacyjnym - <b>k3s</b>, k0s, microk8s i inne</p>
+							<ul>
+								<li>Możemy normalnie korzystać z systemu, więc można łatwo przechowywać dane, konfigurować sterowniki i inne</li>
+								<li>Korzystamy z popularnych programów więc uzyskujemy łatwo <i>transferowalną</i> wiedzę</li>
+								<li>Najprostsza instalacja, która nie powinna stanowić problemu dla osoby z małym doświadczeniem z linuxem / serwerami</li>
+							</ul>
+						</li>
+						<li class="text-[3rem]">
+							<p class="text-[3rem]">Rozwiązania lokalne - kind, minikube i inne</p>
+							<p>! Pomijam z uwagi na to, że o ile dobrze nadają się do nauki to jednak lepiej się bawić już na środowisku dev/test</p>
+						</li>
+					</ol>
+				</section>
+				<section>
+					<h1>Dlaczego wybrałem właśnie k3s?</h1>
+					<ul>
+						<li><b>Małe wymagania sprzętowe</b> - Do działania i podstawowej nauki wystarczy jakikolwiek VPS z 1 rdzeniem CPU i 1 GB ramu (co będzie kosztowało śmieszne pieniądze w porównaniu do cloudowych klastrów)</li>
+						<li><b>Sane Defaults</b> - Bardzo prosta i szybka instalacja (sam k3s to ~ 100 MB binarka napisana w go). k3s automatycznie konfiguruje LoadBalancer'a oraz Ingressa, dzięki czemu możemy od razu zabrać się za naukę bez nurkowania w wir tutoriali</li>
+						<li><b>Dobre wsparcie zarówno dla x64 jak i ARM</b> - co umożliwia zabawę z hostowaniem k8s na Raspberry PI, serwerach Ampere opartych na ARM i innych</li>
+						<li><b>Czytelna i pomocna dokumentacja</b></li>
+						<li><b>Darmowe i wspierane przez Cloud Native Computing Foundation</b></li>
+						<li><b>Samo oprogramowanie napisane jest przez programistów z Rancher'a (by SUSE)</b> - k0s - mirantis, microk8s - canonical</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Jak zbudowany jest klaster k3s?</h1>
+					<div class="h-[50rem] w-full flex justify-center">
+						<img src="./src/imgs/k3s-architecture.svg"/>
+					</div>
+					<p><b>Kine</b> - (Kine is not etcd) umożliwia utrzymywanie stanu klastra poza etcd (SQLite, MySQL, PostgreSQL, etcd)</p>
+					<p><b>Flannel</b> - simple and easy way to configure a layer 3 network fabric designed for Kubernetes</p>
+				</section>
+				<section>
+					<h1>Jak wygląda instalacja?</h1>
+					<section>
+						<div>
+							<p>Instalacja głównego node'a</p>
+							<code>curl -sfL https://get.k3s.io | sh -</code>
+							<p class="!mt-[5rem]">Instalacja i dołączenie do istniejącego klastra</p>
+							<code>curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -</code>
+						</div>
+					</section>
+					<section>
+						TODO Albo live prezentacja albo nagranie
+					</section>
+					<section>
+						<ul>
+							<li>Plik <code>kubeconfig</code> znajduje się w <code>/etc/rancher/k3s/k3s.yaml</code></li>
+							<li>Jeżeli chcemy się połączyć zdalnie możemy podmienić IP / domenę w pliku i wrzucić na lokalnym komputerze w <code>~/.kube/config</code></li>
+							<li>
+								<div>
+									<p>Teraz po wpisaniu:</p>
+									<p><code>kubectl get nodes</code></p>
+									<p>Powinniśmy dostać:</p>
+									<img src="src/imgs/get_nodes.png"/>
+								</div>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h1>Spróbujmy przetestować jak działa nasz klaster</h1>
+					<section>
+						<ul>
+							<li>By zaprezentować podstawową funkcjonalność klastra, spróbujmy zdeployować prostą aplikację <a href="https://gchq.github.io/CyberChef/">CyberChef</a>.</li>
+							<li>Jest to aplikacja czysto-frontendowa, także nie będziemy musieli się przejmować bazą danych, zmiennymi środowiskowymi i innymi tego typu rzeczami.</li>
+						</ul>
+					</section>
+				</section>
+			</div>
+		</div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
