@@ -10,13 +10,55 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Kubernetes po studencku</h1>
-					<p>czyli prezentacja <b>k3s</b> jako narzędzia do nauki i testowania kubernetesa</p>
+					<h1>Kubernetes dla początkujących</h1>
+					<p>jak zacząć zabawę z k8s "po kosztach"</p>
 				</section>
 				<section>
+					<h1>Czym jest k8s?</h1>
+					<ul>
+						<li>Kubernetes to system open-source do automatyzacji wdrażania, skalowania i zarządzania aplikacjami kontenerowymi</li>
+						<li>Dzięki deklaratywnej naturze, możemy opisać docelowy stan a system automatycznie skonfiguruje maszyny</li>
+						<li>Umożliwia lepsze wykorzystanie zasobów, ułatwia devops'om i developerom stawianie systemu oraz jego administrację</li>
+						<li>Wydany przez Google w 2014 roku, obecnie zarządzany przez Cloud Native Computing Foundation</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
 					<section>
-						<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
 						<h1 class="fragment fade-in !text-red-500">Nie</h1>
+					</section>
+					<section>
+						<h3>Najczęstsze sposoby deploymentu aplikacji</h1>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Instalacja aplikacji bezpośrednio na systemie operacyjnym</th>
+									<th>Automatycznie zarządzany deployment w chmurze (np. Azure AppServices)</th>
+									<th>Docker / docker-compose</th>
+									<th>Kubernetes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Stopień skomplikowania</td>
+									<td>Wymaga znajomości Windows / Linux oraz środowiska aplikacji</td>
+									<td>Bardzo proste</td>
+									<td>Wymaga znajomości dockera. Sam docker-compose jest bardzo prosty</td>
+									<td>Złożona konfiguracja, wymagająca znajomości k8s</td>
+								</tr>
+								<tr>
+									<td>Koszt</td>
+									<td>Cena VPS + ew. licencje</td>
+									<td>Zależy od pakietu (zazwyczaj drożej niż VPS)</td>
+									<td>Cena VPS + ew. licencje</td>
+									<td>Koszt klasta (zazwyczaj najdroższe)</td>
+								</tr>
+								<tr>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
 					</section>
 					<section>
 						<h2>Plusy k8s</h2>
