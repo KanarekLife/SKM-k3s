@@ -4,23 +4,46 @@
 		<meta charset="UTF-8" />
 		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Studencki k8s</title>
+		<title>Let's get started with Kubernetes</title>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Kubernetes dla początkujących</h1>
-					<p>jak zacząć zabawę z k8s "po kosztach"</p>
+					<h1>Let's get started with Kubernetes</h1>
+					<p>czym jest kubernetes, jak przygotować tani klaster do nauki i zrobić swój pierwszy deployment?</p>
 				</section>
 				<section>
-					<h1>Czym jest k8s?</h1>
+					<h1>Agenda</h1>
 					<ul>
-						<li>Kubernetes to system open-source do automatyzacji wdrażania, skalowania i zarządzania aplikacjami kontenerowymi</li>
-						<li>Dzięki deklaratywnej naturze, możemy opisać docelowy stan a system automatycznie skonfiguruje maszyny</li>
-						<li>Umożliwia lepsze wykorzystanie zasobów, ułatwia devops'om i developerom stawianie systemu oraz jego administrację</li>
-						<li>Wydany przez Google w 2014 roku, obecnie zarządzany przez Cloud Native Computing Foundation</li>
+						<li>Czym jest kubernetes?</li>
+						<li>Kubernetes vs inne rozwiązania wdrażania aplikacji</li>
+						<li>Jak zbudowany jest klaster kubernetes'a?</li>
+						<li>Jak przygotować swój własny klaster do nauki i testów</li>
+						<li>Jak zrobić swój pierwszy podstawowy deployment</li>
 					</ul>
+				</section>
+				<section>
+					<h1>Czym jest kubernetes?</h1>
+					<div class="flex gap-4">
+						<ul>
+							<li class="mb-4 mt-24">Kubernetes jest system open-source napisanym w Go do automatyzacji wdrożeń, skalowania oraz zarządzania skonteneryzowanymi aplikacjami.</li>
+							<li class="mb-4">Został stworzony w 2014 przez programistów w Google'u zainspirowanych wewnętrznym narzędziem "Borg" służącym do zarządzania klastrami oraz "Promise Theory".</li>
+							<li class="mb-4">Wersja 1.0 została wydana w 2015 i została przekazana do zarządzania nowo-utworzonej organizacji "Cloud Native Computing Foundation (CNCF)" utworzonej przez Google oraz Linux Foundation. Do tej pory odpowiadają za popularyzację, rozwój i utrzymanie kubernetes'a i wielu innych powiązanych projektów.</li>
+							<li class="mb-4">Kubernetes operuje w sposób deklaratywny na obiektach opisujących pożądany stan działających wdrożeń na klastrze. Sam system napisany jest w sposób ułatwiający jego rozbudowę oraz umożliwia duże możliwości zarówno dla developerów, operatorów jak i administratorów klastrów.</li>
+						</ul>
+						<figure class="w-[160rem]">
+							<img src="src/imgs/k8s_features.png" />
+						</figure>
+					</div>
+				</section>
+				<section>
+					<h1>Kubernetes vs inne rozwiązania wdrażania aplikacji</h1>
+					<section>
+						<h2>Popularne rozwiązania:</h2>
+						<ul>
+						</ul>
+					</section>
 				</section>
 				<section>
 					<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
