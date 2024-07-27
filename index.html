@@ -38,12 +38,22 @@
 					</div>
 				</section>
 				<section>
-					<h1>Kubernetes vs inne rozwiązania wdrażania aplikacji</h1>
-					<section>
-						<h2>Popularne rozwiązania:</h2>
+					<h1>Najczęstsze sposoby wdrażania aplikacji</h1>
+					<div class="flex items-center">
+						<div class="flex items-start w-40 mr-20 rotate-180">
+							<p class="text-blue-500 [writing-mode:vertical-rl]">&bullet; Nadaje się tylko do usług tylko Pet</p>
+							<p class="text-green-500 [writing-mode:vertical-rl]">&bullet; Nadaje się do usług typu Pet oraz Cattle</p>
+						</div>
 						<ul>
+							<li class="fragment text-blue-500">Wdrożenie na system operacyjny (np. instalacja .NET Runtime i `dotnet run app.dll`)</li>
+							<li class="fragment text-blue-500">Wdrożenie na maszynę wirtualną</li>
+							<li class="fragment text-blue-500">Wdrożenie na kontenery z systemem operacyjnym, np. BSD jails, LXC</li>
+							<li class="fragment text-green-500">Wdrożenie na kontenery, np. docker, podman</li>
+							<li class="fragment text-green-500">Wdrożenie na klaster kubernetes</li>
+							<li class="fragment text-green-500">Wdrożenie na zarządzaną usługę w chmurze, np. Azure WebApp Service, Google Cloud Run etc.</li>
 						</ul>
-					</section>
+					</div>
+					<p>Pets - usługi którymi "zajmujemy się" i utrzymujemy, Cattle - usługi które możemy łatwo tworzyć i niszczyć według potrzeb</p>
 				</section>
 				<section>
 					<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
