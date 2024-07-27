@@ -39,176 +39,73 @@
 				</section>
 				<section>
 					<h1>Najczęstsze sposoby wdrażania aplikacji</h1>
-					<div class="flex items-center">
-						<div class="flex items-start w-40 mr-20 rotate-180">
-							<p class="text-blue-500 [writing-mode:vertical-rl]">&bullet; Nadaje się tylko do usług tylko Pet</p>
-							<p class="text-green-500 [writing-mode:vertical-rl]">&bullet; Nadaje się do usług typu Pet oraz Cattle</p>
-						</div>
-						<ul>
-							<li class="fragment text-blue-500">Wdrożenie na system operacyjny (np. instalacja .NET Runtime i `dotnet run app.dll`)</li>
-							<li class="fragment text-blue-500">Wdrożenie na maszynę wirtualną</li>
-							<li class="fragment text-blue-500">Wdrożenie na kontenery z systemem operacyjnym, np. BSD jails, LXC</li>
-							<li class="fragment text-green-500">Wdrożenie na kontenery, np. docker, podman</li>
-							<li class="fragment text-green-500">Wdrożenie na klaster kubernetes</li>
-							<li class="fragment text-green-500">Wdrożenie na zarządzaną usługę w chmurze, np. Azure WebApp Service, Google Cloud Run etc.</li>
-						</ul>
-					</div>
-					<p>Pets - usługi którymi "zajmujemy się" i utrzymujemy, Cattle - usługi które możemy łatwo tworzyć i niszczyć według potrzeb</p>
-				</section>
-				<section>
-					<h1>Czy k8s jest zawsze najlepszym rozwiązaniem?</h1>
-					<section>
-						<h1 class="fragment fade-in !text-red-500">Nie</h1>
-					</section>
-					<section>
-						<h3>Najczęstsze sposoby deploymentu aplikacji</h1>
-						<table>
-							<thead>
-								<tr>
-									<th></th>
-									<th>Instalacja aplikacji bezpośrednio na systemie operacyjnym</th>
-									<th>Automatycznie zarządzany deployment w chmurze (np. Azure AppServices)</th>
-									<th>Docker / docker-compose</th>
-									<th>Kubernetes</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Stopień skomplikowania</td>
-									<td>Wymaga znajomości Windows / Linux oraz środowiska aplikacji</td>
-									<td>Bardzo proste</td>
-									<td>Wymaga znajomości dockera. Sam docker-compose jest bardzo prosty</td>
-									<td>Złożona konfiguracja, wymagająca znajomości k8s</td>
-								</tr>
-								<tr>
-									<td>Koszt</td>
-									<td>Cena VPS + ew. licencje</td>
-									<td>Zależy od pakietu (zazwyczaj drożej niż VPS)</td>
-									<td>Cena VPS + ew. licencje</td>
-									<td>Koszt klasta (zazwyczaj najdroższe)</td>
-								</tr>
-								<tr>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					</section>
-					<section>
-						<h2>Plusy k8s</h2>
-						<ul>
-							<li>Mamy spory ruch i potrzebujemy skalować horyzontalnie nasze usługi</li>
-							<li>Chcielibyśmy mieć ustandaryzowaną warstwę abstrakcji by łatwiej wdrażać nowe serwisy</li>
-							<li>Nie chcielibyśmy być zbyt "vendor locked-in" i chcemy mieć możliwość późniejszej zmiany chmury na którą wdrażamy</li>
-							<li>Chcielibyśmy korzystać z nowszych technik DevOps: GitOps, A/B Testing, Canary releases i inne...</li>
-							<li>Pozwala lepiej rozłożyć zasoby sprzętowe</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Minusy k8s</h2>
-						<ul>
-							<li>Wymaga wiedzy i doświadczenia aby go poprawnie skonfigurować</li>
-							<li>Niesie za sobą wyższe koszty (niż np. zwykły VPS) co może być dotkliwe zwłaszcza w przypadku środowisk testowych</li>
-							<li>Wsparcie dla .NET Framework jest możliwe ale jest zdecydowanie mniej materiałów do nauki niż w przypadku .NET Core</li>
-							<li>Zarządzenie i debugowanie klastra jest uciążliwe ze względu na stopień skomplikowania</li>
-						</ul>
-					</section>
-				</section>
-				<section>
-					<h1>Jak możemy zminimalizować te minusy?</h1>
-					<p>W mojej opinii warto skorzystać tutaj z</p>
-					<div class="h-[25rem] w-full flex justify-center">
-						<img src="./src/imgs/k3s-logo.svg"/>
-					</div>
-				</section>
-				<section>
-					<h1>Jak uzyskać klaster do nauki?</h1>
-					<ol>
-						<li class="text-[3rem]">
-							<p class="text-[3rem]">Managed k8s clusters (AKS, EKS, GKE, Linode, DO etc.)</p>
-							<ul>
-								<li>Stosunkowo wysoka cena</li>
-								<li>Duży stopień skomplikowania; Wymaga wiedzy by poprawnie skonfigurować i nie zbankrutować</li>
-								<li>Vendor Lock-In - Ciężko zmienić dostawcę (np. LoadBalancer, powiązane usługi, IAM i inne)</li>
-								<li>Idealne na produkcyjny workload, często przesada na środowisko dev/test</li>
-							</ul>
-						</li>
-						<li class="text-[3rem]">
-							<p class="text-[3rem]">BareMetal - CoreOS, RancherOS, VMWare i inne</p>
-							<ul>
-								<li>Szybkie, prostsze w instalacji na własnym systemie</li>
-								<li>Ciężej skonfigurować i wykorzystać przestrzeń dyskową bądź resztę komponentów (karty graficzne etc.)</li>
-								<li>Wymaga znajomości danego systemu; Uczymy się mniej uniwersalnych umiejętności</li>
-							</ul>
-						</li>
-						<li class="text-[3rem]">
-							<p class="text-[3rem] fragment highlight-red">Instalacja na systemie operacyjnym - <b>k3s</b>, k0s, microk8s i inne</p>
-							<ul>
-								<li>Możemy normalnie korzystać z systemu, więc można łatwo przechowywać dane, konfigurować sterowniki i inne</li>
-								<li>Korzystamy z popularnych programów więc uzyskujemy łatwo <i>transferowalną</i> wiedzę</li>
-								<li>Najprostsza instalacja, która nie powinna stanowić problemu dla osoby z małym doświadczeniem z linuxem / serwerami</li>
-							</ul>
-						</li>
-						<li class="text-[3rem]">
-							<p class="text-[3rem]">Rozwiązania lokalne - kind, minikube i inne</p>
-							<p>! Pomijam z uwagi na to, że o ile dobrze nadają się do nauki to jednak lepiej się bawić już na środowisku dev/test</p>
-						</li>
-					</ol>
-				</section>
-				<section>
-					<h1>Dlaczego wybrałem właśnie k3s?</h1>
 					<ul>
-						<li><b>Małe wymagania sprzętowe</b> - Do działania i podstawowej nauki wystarczy jakikolwiek VPS z 1 rdzeniem CPU i 1 GB ramu (co będzie kosztowało śmieszne pieniądze w porównaniu do cloudowych klastrów)</li>
-						<li><b>Sane Defaults</b> - Bardzo prosta i szybka instalacja (sam k3s to ~ 100 MB binarka napisana w go). k3s automatycznie konfiguruje LoadBalancer'a oraz Ingressa, dzięki czemu możemy od razu zabrać się za naukę bez nurkowania w wir tutoriali</li>
-						<li><b>Dobre wsparcie zarówno dla x64 jak i ARM</b> - co umożliwia zabawę z hostowaniem k8s na Raspberry PI, serwerach Ampere opartych na ARM i innych</li>
-						<li><b>Czytelna i pomocna dokumentacja</b></li>
-						<li><b>Darmowe i wspierane przez Cloud Native Computing Foundation</b></li>
-						<li><b>Samo oprogramowanie napisane jest przez programistów z Rancher'a (by SUSE)</b> - k0s - mirantis, microk8s - canonical</li>
+						<li class="fragment"><span class="text-blue-500">Wdrożenie na system operacyjny (np. instalacja .NET Runtime i `dotnet run app.dll`)</span></li>
+						<li class="fragment"><span class="text-blue-500">Wdrożenie na maszynę wirtualną</span></li>
+						<li class="fragment"><span class="text-blue-500">Wdrożenie na kontenery z systemem operacyjnym, np. BSD jails, LXC</span></li>
+						<li class="fragment"><span class="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">Wdrożenie na kontenery, np. docker, podman</span></li>
+						<li class="fragment"><span class="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">Wdrożenie na klaster kubernetes</span></li>
+						<li class="fragment"><span class="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">Wdrożenie na zarządzaną usługę w chmurze, np. Azure WebApp Service, Google Cloud Run etc.</span></li>
 					</ul>
+					<p class="fragment"><span class="text-blue-500">Pets</span> - usługi którymi "zajmujemy się" i utrzymujemy, <span class="text-green-500">Cattle</span> - usługi które możemy łatwo tworzyć i niszczyć według potrzeb</p>
 				</section>
 				<section>
-					<h1>Jak zbudowany jest klaster k3s?</h1>
-					<div class="h-[50rem] w-full flex justify-center">
-						<img src="./src/imgs/k3s-architecture.svg"/>
+					<h1>Parę największych plusów i minusów kubernetes'a</h1>
+					<div class="flex">
+						<ul class="w-1/2">
+							<h2>Plusy</h2>
+							<li>Ustandaryzowany sposób wdrażania aplikacji; redukujemy ryzyko vendor lock-in'u</li>
+							<li>Szereg feature'ów ułatwiających pracę: automatycznie leczenie zdegradowanych usług, automatyczne skalowanie usług w zależności od obciążenia, możliwość łatwiejszego zbierania statystyk...</li>
+							<li>Możliwość delegacji uprawnień, dzięki czemu różne zespoły mogą mieć dostępy do różnych usług działających na tym samych klastrze / węźle co poprawia wykorzystanie aktualnych zasobów</li>
+							<li>Dużo materiałów do nauki i projektów korzystających z k8s, dzięki czemu łatwiej się go nauczyć niż mniej popularnych rozwiązań</li>
+							<li>Dzięki deklaratywnej naturze, łatwiej skalować nasze aplikacje</li>
+						</ul>
+						<ul class="w-1/2">
+							<h2>Minusy</h2>
+							<li>Wyższe koszty (zwłaszcza jeżeli chcemy skorzystać z cloud'owych rozwiązań albo mieć rozproszony klaster)</li>
+							<li>Administracja i korzystanie wymaga dosyć sporej wiedzy</li>
+							<li>Może być trudniejszy do debugowania w razie problemów</li>
+							<li>Może nie być opcją gdy nasza aplikacja nie jest skonteneryzowana</li>
+						</ul>
 					</div>
-					<p><b>Kine</b> - (Kine is not etcd) umożliwia utrzymywanie stanu klastra poza etcd (SQLite, MySQL, PostgreSQL, etcd)</p>
-					<p><b>Flannel</b> - simple and easy way to configure a layer 3 network fabric designed for Kubernetes</p>
 				</section>
 				<section>
-					<h1>Jak wygląda instalacja?</h1>
-					<section>
-						<div>
-							<p>Instalacja głównego node'a</p>
-							<code>curl -sfL https://get.k3s.io | sh -</code>
-							<p class="!mt-[5rem]">Instalacja i dołączenie do istniejącego klastra</p>
-							<code>curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -</code>
+					<h1>Z czego zbudowany jest klaster kubernetes?</h1>
+					<div class="flex">
+						<figure class="w-1/2">
+							<img src="src/imgs/kubernetes-cluster-architecture.svg" />
+							<figcaption>Podstawowa architektura klastra</figcaption>
+						</figure>
+						<div class="ml-10 w-1/2 text-[2rem]">
+							<ul>
+								<li>
+									<h2>Node</h2>
+									<ul>
+										<li><b>kubelet</b> - An agent that runs on each node in the cluster. It makes sure that containers are running in a pod.</li>
+										<li><b>Container Runtime</b> - The container runtime is the software that is responsible for running containers.</li>
+										<li><b>kube-proxy</b> - a network proxy that runs on each node in the cluster.</li>
+									</ul>
+								</li>
+								<li>
+									<h2>Control Plane</h2>
+									<ul>
+										<li><b>ectd</b> - a consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.</li>
+										<li><b>kube-api-server</b> - The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</li>
+										<li><b>scheduler</b> - Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</li>
+										<li><b>Controller Manager</b> - Control plane component that runs controller processes. (Node controller: Responsible for noticing and responding when nodes go down, Job controller: Watches for Job objects that represent one-off tasks, then creates Pods to run those tasks to completion, EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods), ServiceAccount controller: Create default ServiceAccounts for new namespaces)</li>
+										<li><b>cloud-control-manager</b> - A Kubernetes control plane component that embeds cloud-specific control logic. If you are running Kubernetes on your own premises, or in a learning environment inside your own PC, the cluster does not have a cloud controller manager.</li>
+									</ul>
+								</li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						TODO Albo live prezentacja albo nagranie
-					</section>
-					<section>
-						<ul>
-							<li>Plik <code>kubeconfig</code> znajduje się w <code>/etc/rancher/k3s/k3s.yaml</code></li>
-							<li>Jeżeli chcemy się połączyć zdalnie możemy podmienić IP / domenę w pliku i wrzucić na lokalnym komputerze w <code>~/.kube/config</code></li>
-							<li>
-								<div>
-									<p>Teraz po wpisaniu:</p>
-									<p><code>kubectl get nodes</code></p>
-									<p>Powinniśmy dostać:</p>
-									<img src="src/imgs/get_nodes.png"/>
-								</div>
-							</li>
-						</ul>
-					</section>
+					</div>
 				</section>
 				<section>
-					<h1>Spróbujmy przetestować jak działa nasz klaster</h1>
-					<section>
-						<ul>
-							<li>By zaprezentować podstawową funkcjonalność klastra, spróbujmy zdeployować prostą aplikację <a href="https://gchq.github.io/CyberChef/">CyberChef</a>.</li>
-							<li>Jest to aplikacja czysto-frontendowa, także nie będziemy musieli się przejmować bazą danych, zmiennymi środowiskowymi i innymi tego typu rzeczami.</li>
-						</ul>
-					</section>
+					<h1>Na czym postawić klaster do nauki?</h1>
+					<ul>
+						<li>AKS, EKS, GKE - bardzo dobre na produkcyjny workload, aczkolwiek mogą mieć zbyt wysoką cenę do nauki lub środowiska dev/test. Zawierają elementy spoza domyślnych elementów kubernetes'a, także mogą występować pewne różnice (np. load balancer).</li>
+						<li></li>
+					</ul>
 				</section>
 			</div>
 		</div>
